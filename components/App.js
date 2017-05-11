@@ -9,7 +9,10 @@ const xpr  = require('json!./../expressive.json');
 function getInitialState() {
   return {
     reports: jsonInterface.getReports(xpr),
-    openMethodButtons: []
+    openMethodButtons: [],
+    isRouteTreeView: true,
+    activeTab: '',
+    openTabs: []
   }
 }
 
@@ -19,6 +22,8 @@ class App extends Component {
     this.state = getInitialState();
 
     this.onMethodButtonClick = this.onMethodButtonClick.bind(this);
+    this.onSideTabClick = this.onSideTabClick.bind(this);
+    this.onRouteButtonClick = this.onRouteButtonClick.bind(this);
   }
 
   render() {
@@ -26,21 +31,34 @@ class App extends Component {
 
     const sidebarEventHandlers = {
       onMethodButtonClick: this.onMethodButtonClick,
+      onSideTabClick: this.onSideTabClick,
+      onRouteButtonClick: this.onRouteButtonClick
     }
 
     const forRouteTree = {
       openMethodButtons: this.state.openMethodButtons,
+      routeIds: routeIds
+    }
+
+    const tabInfo = {
+      activeTab: this.state.activeTab,
+      openTabs: this.state.openTabs
     }
 
     return (
       <div id="App">
-        <Sidebar routeIds={routeIds} eventHandlers={sidebarEventHandlers} forRouteTree={forRouteTree}/>
-        <MainDisplay />
+        <Sidebar isRouteTreeView={this.state.isRouteTreeView} eventHandlers={sidebarEventHandlers} forRouteTree={forRouteTree}/>
+        <MainDisplay tabInfo={tabInfo} reports={this.state.reports}/>
       </div>
     )
   }
 
   //Methods for child components!
+
+  onSideTabClick(tabType) {
+    let currTab = this.state.isRouteTreeView ? 'expressive' : 'settings';
+    if (tabType !== currTab) this.setState({isRouteTreeView: (tabType === 'expressive')})
+  }
 
   onMethodButtonClick(method) {
     const openMethodButtons = this.state.openMethodButtons.slice();
@@ -49,6 +67,12 @@ class App extends Component {
     this.setState({openMethodButtons});
   }
 
+  onRouteButtonClick(routeId) {
+    const openTabs = this.state.openTabs.slice();
+    if (!openTabs.includes(routeId)) openTabs.push(routeId);
+    let activeTab = routeId;
+    this.setState({openTabs, activeTab});
+  }
 
 }
 

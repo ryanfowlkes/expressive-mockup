@@ -19,20 +19,25 @@ class Sidebar extends Component {
 
   render() {
     const routeTreeEventHandlers = {
-      onMethodButtonClick: this.props.eventHandlers.onMethodButtonClick
+      onMethodButtonClick: this.props.eventHandlers.onMethodButtonClick,
+      onRouteButtonClick: this.props.eventHandlers.onRouteButtonClick
     }
+
+    const RouteTreeView = <RouteTree eventHandlers={routeTreeEventHandlers} methodDisplayInfo={this.props.forRouteTree}/>;
+    const SettingsView = <Settings />;
+    const view = this.props.isRouteTreeView ? RouteTreeView : SettingsView;
 
     return (
       <div id="Sidebar">
-        <SideTabsMenu />
-        <RouteTree routeIds={this.props.routeIds} eventHandlers={routeTreeEventHandlers} methodDisplayInfo={this.props.forRouteTree}/>
+        <SideTabsMenu onSideTabClick={this.props.eventHandlers.onSideTabClick} isRouteTreeView={this.props.isRouteTreeView}/>
+        {view}
       </div>
     )
   }
 }
 
 Sidebar.propTypes = {
-  routeIds: PropTypes.array,
+  isRouteTreeView: PropTypes.bool,
   eventHandlers: PropTypes.object,
   forRouteTree: PropTypes.object
 }

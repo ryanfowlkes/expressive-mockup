@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function RouteTree(props) {
 
-  const httpMethods = props.routeIds.reduce((httpMethods, routeId) => {
+  const httpMethods = props.methodDisplayInfo.routeIds.reduce((httpMethods, routeId) => {
     let method = routeId.split(' ')[0];
     if (!httpMethods.includes(method)) httpMethods.push(method);
     return httpMethods;
@@ -13,7 +13,7 @@ function RouteTree(props) {
   const openMethodButtons = props.methodDisplayInfo.openMethodButtons;
 
   const methodDisplays = httpMethods.map((method, i) => {
-    const routeList = props.routeIds.filter(routeId => routeId.split(' ')[0] === method);
+    const routeList = props.methodDisplayInfo.routeIds.filter(routeId => routeId.split(' ')[0] === method);
     const isOpen = openMethodButtons.includes(method);
     return <HttpMethodDisplay method={method} isOpen={isOpen} routeList={routeList} eventHandlers={props.eventHandlers} key={i}/>
   });
@@ -26,7 +26,6 @@ function RouteTree(props) {
 }
 
 RouteTree.propTypes = {
-  routeIds: PropTypes.array,
   eventHandlers: PropTypes.object,
   methodDisplayInfo: PropTypes.object
 }

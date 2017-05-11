@@ -3,7 +3,7 @@ import RouteButton from './RouteButton.js';
 import PropTypes from 'prop-types';
 
 function RouteList(props) {
-  const routeButtons = props.routeList.map((route, i) => <RouteButton route={route} key={i}/>)
+  const routeButtons = props.routeList.map((route, i) => <RouteButton method={props.method} route={route} onRouteButtonClick={props.onRouteButtonClick} key={i}/>)
   const classString = props.isOpen ? 'RouteList openRouteList' : 'RouteList closedRouteList';
 
   return (
@@ -14,8 +14,10 @@ function RouteList(props) {
 }
 
 RouteList.propTypes = {
+  method: PropTypes.string,
   isOpen: PropTypes.bool,
-  routeList: PropTypes.array
+  routeList: PropTypes.array,
+  onRouteButtonClick: PropTypes.func
 }
 
 module.exports = RouteList;
