@@ -11,9 +11,14 @@ class MainDisplay extends Component {
 
 
   render() {
+    const tabEventHandlers = {
+      onMainTabClick: this.props.eventHandlers.onMainTabClick,
+      escapeTab: this.props.eventHandlers.escapeTab
+    }
+
     return (
       <div id="MainDisplay">
-        <MainTabsMenu openTabs={this.props.tabInfo.openTabs} activeTab={this.props.tabInfo.activeTab}/>
+        <MainTabsMenu openTabs={this.props.tabInfo.openTabs} activeTab={this.props.tabInfo.activeTab} eventHandlers={tabEventHandlers}/>
         <Report />
       </div>
     )

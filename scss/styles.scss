@@ -132,4 +132,53 @@ body {
   height: 100%;
   background-color: $mainDisplayColor;
   display: inline-block;
+
+  #MainTabsMenu {
+    font-size: 18px;
+    background-color: $bodyColor;
+    width: 100%;
+    height: $tabHeight;
+    .MainTab {
+      border-left: 1px solid $bodyColor;
+      display: inline-block;
+      height: 100%;
+      width: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow: hidden;
+      text-align: center;
+      line-height: 50px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+
+      .escape-tab-container {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        position: relative;
+        bottom: 15px;
+        left: 5px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        .escape-tab {display: inline-block;}
+      }
+      .escape-tab {
+        color: lighten($bodyColor, 15%);
+        font-size: 16px;
+        display: none;
+      }
+    }
+
+    .activeMainTab {
+      color: $defaultFontColor;
+      background-color: $mainDisplayColor;
+    }
+
+    .inactiveMainTab {
+      color: lighten($bodyColor, 15%);
+      background-color: $inactiveTabColor;
+    }
+  }
 }

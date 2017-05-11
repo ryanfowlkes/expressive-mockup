@@ -3,7 +3,8 @@ $bodyColor: #383838;
 $sidebarColor: #2B2D33;
 $mainDisplayColor: #232326;
 $toggleLineDisplayColor: #7F7F7F;
-$inactiveTabColor: #3d356b;
+$brightpurple: #3d356b;
+$inactiveTabColor: darken($brightpurple, 10%);
 $cornflowerblue: cornflowerblue;
 $buttonHoverColor: lighten($cornflowerblue, 20%);
 

@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 
 function MainTabsMenu(props) {
   const tabs = props.openTabs.map((routeId, i) => {
-    return <MainTab routeId={routeId} key={i}/>
+    return (
+      <MainTab routeId={routeId} activeTab={props.activeTab} onMainTabClick={props.eventHandlers.onMainTabClick}
+      escapeTab={props.eventHandlers.escapeTab} key={i}/>
+  )
   })
 
   return (
@@ -16,7 +19,8 @@ function MainTabsMenu(props) {
 
 MainTabsMenu.propTypes = {
   openTabs: PropTypes.array,
-  activeTab: PropTypes.string
+  activeTab: PropTypes.string,
+  eventHandlers: PropTypes.object
 }
 
 module.exports = MainTabsMenu;
