@@ -24,6 +24,8 @@ class App extends Component {
     this.onMethodButtonClick = this.onMethodButtonClick.bind(this);
     this.onSideTabClick = this.onSideTabClick.bind(this);
     this.onRouteButtonClick = this.onRouteButtonClick.bind(this);
+    this.onMainTabClick = this.onMainTabClick.bind(this);
+    this.escapeTab = this.escapeTab.bind(this);
   }
 
   render() {
@@ -45,10 +47,15 @@ class App extends Component {
       openTabs: this.state.openTabs
     }
 
+    const mainDisplayEventHandlers = {
+      onMainTabClick: this.onMainTabClick,
+      escapeTab: this.escapeTab
+    }
+
     return (
       <div id="App">
         <Sidebar isRouteTreeView={this.state.isRouteTreeView} eventHandlers={sidebarEventHandlers} forRouteTree={forRouteTree}/>
-        <MainDisplay tabInfo={tabInfo} reports={this.state.reports}/>
+        <MainDisplay tabInfo={tabInfo} reports={this.state.reports} eventHandlers={mainDisplayEventHandlers}/>
       </div>
     )
   }
@@ -72,6 +79,22 @@ class App extends Component {
     if (!openTabs.includes(routeId)) openTabs.push(routeId);
     let activeTab = routeId;
     this.setState({openTabs, activeTab});
+  }
+
+  onMainTabClick(routeId) {
+    if (this.state.activeTab !== routeId && this.state.openTabs.includes(routeId)) this.setState({activeTab: routeId});
+  }
+
+  escapeTab(routeId) {
+    const openTabs = this.state.openTabs.slice();
+    openTabs.splice(openTabs.indexOf(routeId), 1);
+    let activeTab;
+    if (routeId === this.state.activeTab && !openTabs.length) activeTab = '';
+    else if (routeId === this.state.activeTab) activeTab = openTabs[0];
+    else {
+      activeTab = this.state.activeTab;
+    }
+    this.setState({activeTab, openTabs});
   }
 
 }
