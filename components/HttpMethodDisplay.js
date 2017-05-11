@@ -9,7 +9,7 @@ function HttpMethodDisplay(props) {
   return (
     <div className="HttpMethodDisplay">
       <MethodButton method={props.method} clickMe={props.eventHandlers.onMethodButtonClick}/>
-      <RouteList routeList={routeList} isOpen={props.isOpen}/>
+      <RouteList method={props.method} routeList={routeList} isOpen={props.isOpen} onRouteButtonClick={props.eventHandlers.onRouteButtonClick}/>
     </div>
   )
 }

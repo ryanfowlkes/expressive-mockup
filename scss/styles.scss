@@ -10,6 +10,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+  vertical-align: middle;
 }
 
 #root {
@@ -34,6 +35,7 @@ body {
     height: $tabHeight;
     width: 100%;
     font-size: 18px;
+    background-color: $bodyColor;
 
     .SideTab {
       color: $defaultFontColor;
@@ -42,11 +44,29 @@ body {
       display: inline-block;
       overflow: hidden;
       text-align: center;
+      line-height: 50px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+
+      img {
+        margin-top: 9px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
 
       #ExpressiveLogo {
         height: $expressiveLogoHeight;
         width: $expressiveLogoWidth;
       }
+    }
+
+    .activeSideTab {
+      background-color: $sidebarColor;
+    }
+    .inactiveSideTab {
+      background-color: darken($bodyColor, 2%);
     }
   }
 

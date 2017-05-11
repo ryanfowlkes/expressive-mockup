@@ -13,11 +13,16 @@ class MainDisplay extends Component {
   render() {
     return (
       <div id="MainDisplay">
-        <MainTabsMenu />
+        <MainTabsMenu openTabs={this.props.tabInfo.openTabs} activeTab={this.props.tabInfo.activeTab}/>
         <Report />
       </div>
     )
   }
+}
+
+MainDisplay.propTypes = {
+  tabInfo: PropTypes.object,
+  reports: PropTypes.object
 }
 
 module.exports = MainDisplay;
