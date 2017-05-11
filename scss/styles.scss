@@ -1,0 +1,115 @@
+@import '_variables';
+
+html{
+  height: 100%;
+  width: 100%;
+  background-color: $bodyColor;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+#App {
+  height: 100%;
+  width: 100%;
+  font-family: $font;
+  display: inline-flex;
+}
+
+#Sidebar {
+  width: $sidebarWidth;
+  height: 100%;
+  background-color: $sidebarColor;
+  display: inline-block;
+
+  #SideTabsMenu {
+    height: $tabHeight;
+    width: 100%;
+    font-size: 18px;
+
+    .SideTab {
+      color: $defaultFontColor;
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      overflow: hidden;
+      text-align: center;
+
+      #ExpressiveLogo {
+        height: $expressiveLogoHeight;
+        width: $expressiveLogoWidth;
+      }
+    }
+  }
+
+  #RouteTree {
+    color: $defaultFontColor;
+    width: 100%;
+    height: calc(100% - 40px);
+
+    .HttpMethodDisplay {
+      .MethodButton {
+        outline: none;
+        font-size: 18px;
+        color: $defaultFontColor;
+        width: 100%;
+        background-color: $sidebarColor;
+        text-align: left;
+        border: none;
+        padding: {
+          left: 15px;
+          top: 15px;
+        }
+        &:hover {
+          cursor: pointer;
+          color: $buttonHoverColor;
+        }
+      }
+
+      .RouteList {
+        .RouteButton {
+          font-size: 14px;
+          outline: none;
+          border: none;
+          color: $defaultFontColor;
+          padding: {
+            left: 30px;
+          }
+          background-color: $sidebarColor;
+          width: 100%;
+          text-align: left;
+          display: block;
+          &:hover {
+            cursor: pointer;
+            color: $buttonHoverColor;
+            background-color: $bodyColor;
+          }
+        }
+      }
+
+      .openRouteList {
+        display: block;
+      }
+
+      .closedRouteList {
+        display: none;
+      }
+    }
+
+  }
+}
+
+#MainDisplay {
+  width: $mainDisplayWidth;
+  height: 100%;
+  background-color: $mainDisplayColor;
+  display: inline-block;
+}
