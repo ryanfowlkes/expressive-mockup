@@ -23,10 +23,13 @@ function ReportLine(props) {
     toggleChangeDeets: props.eventHandlers.toggleChangeDeets
   }
 
+  const lineDisplayEventHandlers = {
+    toggleReportLine: props.eventHandlers.toggleReportLine
+  }
 
   return (
     <div className="ReportLine">
-      <ToggleLineDisplay />
+      <ToggleLineDisplay eventHandlers = {lineDisplayEventHandlers}/>
       <MidwareOverview overview={props.line.overview} eventHandlers={overviewEventHandlers} lineNum={props.lineNum}/>
       {detailsJsx}
     </div>
