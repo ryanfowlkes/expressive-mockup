@@ -110,6 +110,25 @@ const JSONInterface = {
       }
       return reportsObj;
     }, {});
+  },
+
+  getReportLines: (xpr, routeId) => {
+    const reports = JSONInterface.getReports(xpr);
+
+    const reportLines = [];
+    reports[routeId].resSnaps.forEach((resSnap, i) => {
+      const change = reports[routeId].changes[i - 1] ? reports[routeId].changes[i - 1] : null;
+      reportLines.push({
+        isOpen: true,
+        detailsDisplay: '',
+        res: resSnap,
+        req: reports[routeId].reqSnaps[i],
+        change,
+        overview: reports[routeId].summaries[i]
+      });
+    });
+
+    return reportLines;
   }
 
 };

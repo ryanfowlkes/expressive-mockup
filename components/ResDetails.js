@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 
 function ResDetails(props) {
   return (
-    <div className="ResDetails">
-
+    <div className="Details ResDetails">
+      Res Details!
     </div>
   )
+}
+
+ResDetails.propTypes = {
+  details: PropTypes.object
 }
 
 module.exports = ResDetails;
