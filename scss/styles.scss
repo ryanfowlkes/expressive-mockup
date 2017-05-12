@@ -7,6 +7,7 @@ html{
 }
 
 body {
+  overflow: hidden;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -76,11 +77,36 @@ body {
     height: calc(100% - 40px);
 
     .HttpMethodDisplay {
+      .triangle-right {
+        margin-left: 10px;
+        display: inline-block;
+      	width: 0;
+      	height: 0;
+        position: relative;
+        bottom: 4px;
+      	border-top: 3px solid transparent;
+      	border-left: 6px solid $defaultFontColor;
+      	border-bottom: 3px solid transparent;
+      }
+
+      .triangle-down {
+        margin-left: 10px;
+        display: inline-block;
+      	width: 0;
+      	height: 0;
+        position: relative;
+        bottom: 4px;
+      	border-left: 3px solid transparent;
+      	border-right: 3px solid transparent;
+      	border-top: 6px solid $defaultFontColor;
+      }
+
       .MethodButton {
+        display: inline-block;
         outline: none;
         font-size: 18px;
         color: $defaultFontColor;
-        width: 100%;
+        width: auto;
         background-color: $sidebarColor;
         text-align: left;
         border: none;
@@ -151,8 +177,18 @@ body {
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
 
+      img {
+        height: 60%;
+        width: 15px;
+        display: inline-block;
+        margin-right: 3px;
+        position: relative;
+        top: 8px;
+      }
+
       .escape-tab-container {
         display: inline-block;
+        transition: display 5s;
         width: 10px;
         height: 10px;
         position: relative;
@@ -162,7 +198,9 @@ body {
 
       &:hover {
         cursor: pointer;
-        .escape-tab {display: inline-block;}
+        .escape-tab {
+          display: inline-block;
+        }
       }
       .escape-tab {
         color: lighten($bodyColor, 15%);
@@ -179,6 +217,63 @@ body {
     .inactiveMainTab {
       color: lighten($bodyColor, 15%);
       background-color: $inactiveTabColor;
+    }
+  }
+  #Report {
+    overflow: scroll;
+    height: calc(100% - 50px);
+    #grayLogo {
+      opacity: .1;
+      width: 50%;
+      height: auto;
+      padding-left: 25%;
+      padding-top: 20%;
+    }
+
+    .ReportLine {
+      color: $defaultFontColor;
+      display: inline-block;
+      width: 100%;
+      height: $reportLineHeight;
+
+      .ToggleLineDisplay {
+        display: inline-block;
+        width: 15px;
+        height: 100%;
+        background-color: darkgray;
+
+      }
+
+      .MidwareOverview {
+        position: absolute;
+        display: inline-block;
+        height: $reportLineHeight;
+        width: $midwareOverviewWidth;
+        margin-left: 40px;
+        border: 1px solid pink;
+        padding: {
+          left: 15px;
+          right: 15px;
+        }
+
+        .overview-top {
+          border: 1px solid green;
+          margin-top: 15px;
+        }
+
+        .overview-bottom{
+          position: relative;
+          top: 30px;
+        }
+      }
+
+      .Details {
+        width: 200px;
+        height: 100%;
+        border: 1px solid pink;
+        display: inline-block;
+        margin: 20px;
+      }
     }
   }
 }

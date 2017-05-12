@@ -2,11 +2,35 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 function MidwareOverview(props) {
-  return (
-    <div className="MidwareOverview">
+  let overview = props.overview;
+  let classString = 'MidwareOverview';
 
+  const routeId = overview.method + ' ' + overview.originalUrl;
+  const midwareId = overview.prevFuncName;
+  const status = overview.statusMessage ? overview.statusCode + ': ' + overview.statusMessage : overview.statusCode;
+
+  // conditionally render State Changes Button (conditions: isRedirect or is the first reportLine)
+
+  return (
+    <div className={classString}>
+      <div className="overview-top">
+        <div className="overview-statement">{routeId}</div>
+        <div className="overview-statement">{midwareId}</div>
+        <div className="overview-statement">{status}</div>
+      </div>
+      <div className="overview-bottom">
+        <div onClick={()=>{props.eventHandlers.toggleChangeDeets(props.lineNum)}}> State Changes </div>
+        <div onClick={()=>{props.eventHandlers.toggleResDeets(props.lineNum)}}> Response Details </div>
+        <div onClick={()=>{props.eventHandlers.toggleReqDeets(props.lineNum)}}> Request Details </div>
+      </div>
     </div>
   )
+}
+
+MidwareOverview.propTypes = {
+  overview: PropTypes.object,
+  eventHandlers: PropTypes.object,
+  lineNum:  PropTypes.number
 }
 
 module.exports = MidwareOverview;

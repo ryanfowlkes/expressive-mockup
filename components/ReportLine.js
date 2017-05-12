@@ -7,13 +7,37 @@ import ChangeDetails from './ChangeDetails.js';
 import PropTypes from 'prop-types';
 
 function ReportLine(props) {
+
+  let line = props.line;
+  let detailsDisplay = props.line.detailsDisplay;
+  let detailsJsx;
+  if (detailsDisplay === 'res') detailsJsx = <ResDetails details={line.res}/>;
+  else if (detailsDisplay === 'req') detailsJsx = <ReqDetails details={line.req}/>;
+  else if (detailsDisplay === 'change') detailsJsx = <ChangeDetails details={line.change}/>;
+  else detailsJsx = null;
+
+
+  const overviewEventHandlers ={
+    toggleResDeets: props.eventHandlers.toggleResDeets,
+    toggleReqDeets: props.eventHandlers.toggleReqDeets,
+    toggleChangeDeets: props.eventHandlers.toggleChangeDeets
+  }
+
+
   return (
     <div className="ReportLine">
-
-
-      // one of three Details components
+      <ToggleLineDisplay />
+      <MidwareOverview overview={props.line.overview} eventHandlers={overviewEventHandlers} lineNum={props.lineNum}/>
+      {detailsJsx}
     </div>
   )
+}
+
+ReportLine.propTypes = {
+  line: PropTypes.object,
+  lineNum: PropTypes.number,
+  eventHandlers: PropTypes.object,
+  detailsDisplay: PropTypes.string
 }
 
 module.exports = ReportLine;

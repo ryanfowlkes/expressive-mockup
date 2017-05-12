@@ -8,11 +8,11 @@ const xpr  = require('json!./../expressive.json');
 
 function getInitialState() {
   return {
-    reports: jsonInterface.getReports(xpr),
     openMethodButtons: [],
     isRouteTreeView: true,
     activeTab: '',
-    openTabs: []
+    openTabs: [],
+    history: []
   }
 }
 
@@ -26,10 +26,13 @@ class App extends Component {
     this.onRouteButtonClick = this.onRouteButtonClick.bind(this);
     this.onMainTabClick = this.onMainTabClick.bind(this);
     this.escapeTab = this.escapeTab.bind(this);
+    this.toggleResDeets = this.toggleResDeets.bind(this);
+    this.toggleReqDeets = this.toggleReqDeets.bind(this);
+    this.toggleChangeDeets = this.toggleChangeDeets.bind(this);
   }
 
   render() {
-    const routeIds = Object.keys(this.state.reports);
+    const routeIds = Object.keys(xpr).filter(key => key !== 'completedReqs');
 
     const sidebarEventHandlers = {
       onMethodButtonClick: this.onMethodButtonClick,
@@ -49,13 +52,18 @@ class App extends Component {
 
     const mainDisplayEventHandlers = {
       onMainTabClick: this.onMainTabClick,
-      escapeTab: this.escapeTab
+      escapeTab: this.escapeTab,
+      toggleChangeDeets: this.toggleChangeDeets,
+      toggleResDeets: this.toggleResDeets,
+      toggleReqDeets: this.toggleReqDeets
     }
+
+
 
     return (
       <div id="App">
         <Sidebar isRouteTreeView={this.state.isRouteTreeView} eventHandlers={sidebarEventHandlers} forRouteTree={forRouteTree}/>
-        <MainDisplay tabInfo={tabInfo} reports={this.state.reports} eventHandlers={mainDisplayEventHandlers}/>
+        <MainDisplay tabInfo={tabInfo} history={this.state.history} eventHandlers={mainDisplayEventHandlers}/>
       </div>
     )
   }
@@ -78,23 +86,74 @@ class App extends Component {
     const openTabs = this.state.openTabs.slice();
     if (!openTabs.includes(routeId)) openTabs.push(routeId);
     let activeTab = routeId;
-    this.setState({openTabs, activeTab});
+
+    let updateHistory = false;
+    let history = this.state.history.slice();
+    history.forEach((reportState, i) => {
+      if (reportState.routeId === routeId && i !== history.length - 1) {
+        let toEnd = history.splice(i, 1);
+        history = history.concat(toEnd);
+        updateHistory = true;
+      } else if (reportState.routeId === routeId) updateHistory = true;
+    });
+
+    if (!updateHistory) history.push({
+      routeId,
+      reportLines: jsonInterface.getReportLines(xpr, routeId)
+    });
+    this.setState({openTabs, activeTab, history});
   }
 
   onMainTabClick(routeId) {
-    if (this.state.activeTab !== routeId && this.state.openTabs.includes(routeId)) this.setState({activeTab: routeId});
+    let history = this.state.history.slice();
+    history.forEach((reportState, i) => {
+      if (reportState.routeId === routeId && i !== history.length - 1) {
+        const toEnd = history.splice(i,1);
+        history = history.concat(toEnd);
+      }
+    })
+
+    if (this.state.activeTab !== routeId) this.setState({activeTab: routeId, history});
   }
 
   escapeTab(routeId) {
     const openTabs = this.state.openTabs.slice();
     openTabs.splice(openTabs.indexOf(routeId), 1);
-    let activeTab;
-    if (routeId === this.state.activeTab && !openTabs.length) activeTab = '';
-    else if (routeId === this.state.activeTab) activeTab = openTabs[0];
-    else {
-      activeTab = this.state.activeTab;
-    }
-    this.setState({activeTab, openTabs});
+
+    let history = this.state.history;
+    history.forEach((reportState, i) => {
+      if (reportState.routeId === routeId) history.splice(i, 1);
+    });
+
+    let activeTab = history.length ? history[history.length - 1].routeId : '';
+
+    this.setState({activeTab, openTabs, history});
+  }
+
+  toggleChangeDeets(lineNum){
+
+    let history = this.state.history.slice();
+
+    const newVal = (history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] === 'change' ? '' : 'change');
+    history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] = newVal;
+
+    this.setState({history});
+  }
+
+  toggleResDeets(lineNum){
+    let history = this.state.history.slice();
+    const newVal = (history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] === 'res' ? '' : 'res');
+    history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] = newVal;
+
+    this.setState({history});
+  }
+
+  toggleReqDeets(lineNum){
+    let history = this.state.history.slice();
+    const newVal = (history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] === 'req' ? '' : 'req');
+    history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] = newVal;
+
+    this.setState({history});
   }
 
 }
