@@ -19,7 +19,8 @@ class MainDisplay extends Component {
     const reportEventHandlers = {
       toggleResDeets: this.props.eventHandlers.toggleResDeets,
       toggleReqDeets: this.props.eventHandlers.toggleReqDeets,
-      toggleChangeDeets: this.props.eventHandlers.toggleChangeDeets
+      toggleChangeDeets: this.props.eventHandlers.toggleChangeDeets,
+      toggleReportLine: this.props.eventHandlers.toggleReportLine
     }
 
     const reportState = this.props.history.length ? this.props.history[this.props.history.length - 1] : null;

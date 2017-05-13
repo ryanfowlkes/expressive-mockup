@@ -29,6 +29,7 @@ class App extends Component {
     this.toggleResDeets = this.toggleResDeets.bind(this);
     this.toggleReqDeets = this.toggleReqDeets.bind(this);
     this.toggleChangeDeets = this.toggleChangeDeets.bind(this);
+    this.toggleReportLine = this.toggleReportLine.bind(this);
   }
 
   render() {
@@ -55,7 +56,8 @@ class App extends Component {
       escapeTab: this.escapeTab,
       toggleChangeDeets: this.toggleChangeDeets,
       toggleResDeets: this.toggleResDeets,
-      toggleReqDeets: this.toggleReqDeets
+      toggleReqDeets: this.toggleReqDeets,
+      toggleReportLine: this.toggleReportLine
     }
 
 
@@ -152,6 +154,14 @@ class App extends Component {
     let history = this.state.history.slice();
     const newVal = (history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] === 'req' ? '' : 'req');
     history[history.length - 1]['reportLines'][lineNum]['detailsDisplay'] = newVal;
+
+    this.setState({history});
+  }
+
+  toggleReportLine(lineNum){
+    let history = this.state.history.slice();
+    const newVal = history[history.length - 1]['reportLines'][lineNum]['isOpen'] === true ? false : true;
+    history[history.length - 1]['reportLines'][lineNum]['isOpen'] = newVal;
 
     this.setState({history});
   }

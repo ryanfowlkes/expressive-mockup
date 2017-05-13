@@ -19,9 +19,9 @@ function MidwareOverview(props) {
         <div className="overview-statement">{status}</div>
       </div>
       <div className="overview-bottom">
-        <div onClick={()=>{props.eventHandlers.toggleChangeDeets(props.lineNum)}}> State Changes </div>
-        <div onClick={()=>{props.eventHandlers.toggleResDeets(props.lineNum)}}> Response Details </div>
-        <div onClick={()=>{props.eventHandlers.toggleReqDeets(props.lineNum)}}> Request Details </div>
+        <div className = 'overviewDeets' onClick={()=>{props.eventHandlers.toggleChangeDeets(props.lineNum)}}> State Changes </div>
+        <div className = 'overviewDeets' onClick={()=>{props.eventHandlers.toggleResDeets(props.lineNum)}}> Response Details </div>
+        <div className = 'overviewDeets' onClick={()=>{props.eventHandlers.toggleReqDeets(props.lineNum)}}> Request Details </div>
       </div>
     </div>
   )

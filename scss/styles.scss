@@ -241,7 +241,6 @@ body {
         width: 15px;
         height: 100%;
         background-color: darkgray;
-
       }
 
       .MidwareOverview {
@@ -254,7 +253,7 @@ body {
         padding: {
           left: 15px;
           right: 15px;
-        }
+        }  
 
         .overview-top {
           border: 1px solid green;
@@ -264,15 +263,22 @@ body {
         .overview-bottom{
           position: relative;
           top: 30px;
+
+          .overviewDeets{
+              &:hover {
+              cursor: pointer;
+            }
+          }
         }
       }
 
       .Details {
-        width: 200px;
-        height: 100%;
+        width: 55%;
+        height: 175px;
         border: 1px solid pink;
         display: inline-block;
-        margin: 20px;
+        position: absolute;
+        margin-left: 260px;
       }
     }
   }
