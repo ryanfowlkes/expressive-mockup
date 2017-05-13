@@ -29,7 +29,7 @@ function ReportLine(props) {
 
   return (
     <div className="ReportLine">
-      <ToggleLineDisplay eventHandlers = {lineDisplayEventHandlers}/>
+      <ToggleLineDisplay eventHandlers = {lineDisplayEventHandlers} lineNum = {props.lineNum} line  = {props.line}/>
       <MidwareOverview overview={props.line.overview} eventHandlers={overviewEventHandlers} lineNum={props.lineNum}/>
       {detailsJsx}
     </div>
