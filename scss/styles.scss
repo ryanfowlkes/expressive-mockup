@@ -220,7 +220,8 @@ body {
     }
   }
   #Report {
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: calc(100% - 50px);
     #grayLogo {
       opacity: .1;
@@ -235,6 +236,9 @@ body {
       display: inline-block;
       width: 100%;
       height: $reportLineHeight;
+      padding: 5px;
+      border-bottom: 1px solid $bodyColor;
+      position: relative;
 
       .ToggleLineDisplay {
         display: inline-block;
@@ -244,19 +248,22 @@ body {
       }
 
       .MidwareOverview {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        margin-left: 15px;
+        margin-top: 7px;
         position: absolute;
         display: inline-block;
-        height: $reportLineHeight;
+        height: 160px;
         width: $midwareOverviewWidth;
-        margin-left: 40px;
-        border: 1px solid pink;
+        background-color: lighten($inactiveTabColor, 10%);
+        border-radius: 3px;
         padding: {
           left: 15px;
           right: 15px;
-        }  
+        }
 
         .overview-top {
-          border: 1px solid green;
           margin-top: 15px;
         }
 
@@ -273,12 +280,21 @@ body {
       }
 
       .Details {
-        width: 55%;
-        height: 175px;
-        border: 1px solid pink;
+        color: $detailsColor;
+        border-radius: 3px;
+        background-color: $bodyColor;
+        overflow: scroll;
+        width: 60%;
+        height: 145px;
         display: inline-block;
         position: absolute;
-        margin-left: 260px;
+        margin-left: 250px;
+        margin-top: 7px;
+        padding: {
+          left: 15px;
+          right: 15px;
+          top: 15px;
+        }
       }
     }
   }

@@ -4,7 +4,7 @@
 */
 
 const diff = require('deep-diff').diff;
-//const xpr = require('../../../expressive.json');
+const xpr = require('./../expressive.json');
 
 const JSONInterface = {
   getStateChanges: (xpr) => {
@@ -129,6 +129,43 @@ const JSONInterface = {
     });
 
     return reportLines;
+  },
+
+  getChangeHighlights: (changes) => {
+    const watchPaths = [
+      'res._headers', 'res.locals', 'res._headerSent', 'res.finished',
+      'req.complete', 'req.body', 'req.cookies', 'req.signedCookies'
+    ];
+
+    function isWatched(diffObj, i, changes) {
+      const paths = changes.map(diffObj => diffObj.path.join('.'));
+      let watched = false;
+      let j = 0;
+      while (!watched && j < watchPaths.length) {
+        if (paths[i].indexOf(watchPaths[j]) === 0) watched = true;
+        j += 1;
+      }
+      return watched;
+    }
+
+    let watchedChanges;
+    if (changes) {
+      watchedChanges = changes.filter(isWatched);
+    }
+    return watchedChanges;
+  },
+
+  getResponseHighlights: (res) => {
+    const watchPaths = [
+      '_headers', 'locals', '_headerSent', 'finished', '_contentLength', '_last',
+      '_events', '_removedHeader', '_hasBody', '_trailer'
+    ];
+    
+    const highlights = Object.keys(res).filter(key => watchPaths.includes(key)).reduce((obj, key) => {
+      obj[key] = res[key];
+      return obj
+    }, {});
+    return highlights;
   }
 
 };
